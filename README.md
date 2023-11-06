@@ -1,3 +1,16 @@
+## Конфигурация
+Нужен Redis/RabbitMQ для работы очереди
+
+В файле `config.py`:
+
+```python
+HOURS = {} # Коэффициент голосов по часам
+RANDOM_INTERVAL = 2 # граница дополнительного интервала [-RANDOM_INTERVAL, RANDOM_INTERVAL]
+TRACK_ID = 1 # ID трека с сайта
+CELERY_BROKER = '' # брокер для заданий (redis/rabbitmq)
+VOTE_COUNT = 1 # общее кол-во голосовавших за день (кол-во голосов = VOTE_COUNT * 3)
+```
+
 ## Запуск celery
 
 ```shell
@@ -27,17 +40,6 @@ sudo systemctl start chartova-celery
 sudo systemctl enable chartova-celery
 ```
 
-## Конфигурация
-
-В файле `config.py`:
-
-```python
-HOURS = {} # Коэффициент голосов по часам
-RANDOM_INTERVAL = 2 # граница дополнительного интервала [-RANDOM_INTERVAL, RANDOM_INTERVAL]
-TRACK_ID = 1 # ID трека с сайта
-CELERY_BROKER = '' # брокер для заданий (redis/rabbitmq)
-VOTE_COUNT = 1 # общее кол-во голосовавших за день (кол-во голосов = VOTE_COUNT * 3)
-```
 
 ## Запуск голосования
 
