@@ -6,9 +6,7 @@
 ```python
 HOURS = {} # Коэффициент голосов по часам
 RANDOM_INTERVAL = 2 # граница дополнительного интервала [-RANDOM_INTERVAL, RANDOM_INTERVAL]
-TRACK_ID = 1 # ID трека с сайта
 CELERY_BROKER = '' # брокер для заданий (redis/rabbitmq)
-VOTE_COUNT = 1 # общее кол-во голосовавших за день (кол-во голосов = VOTE_COUNT * 3)
 ```
 
 ## Запуск celery
@@ -45,6 +43,7 @@ sudo systemctl enable chartova-celery
 
 Запуск скрипта каждый час:
 ```shell
-$POETRY_ENV_DIR/bin/python main.py
+$POETRY_ENV_DIR/bin/python main.py track_id vote_count
 ```
+`vote_count` - количество голосов в день.
 Запустит в селери задания в соответствии с общим кол-вом голосов в день и коэффициентом часа. 

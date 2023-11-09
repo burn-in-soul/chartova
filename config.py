@@ -28,8 +28,5 @@ HOURS = {
 }
 
 RANDOM_INTERVAL = 2
-TRACK_ID = 1633
 
 CELERY_BROKER = 'redis://localhost:6379/'
-
-VOTE_COUNT = 100
