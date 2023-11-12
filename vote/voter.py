@@ -22,10 +22,12 @@ class Voter:
         self._prepare_data()
 
     def vote_pack(self, track_id: int) -> None:
+        print('run task')
         with stem.control.Controller.from_port(
                 address=config.TOR_HOST,
                 port=config.TOR_PORT) as controller:
             controller.authenticate(password=config.TOR_PASSWORD)
+            print('get controller')
             one_vote = Vote(session=self._session, headers=self._headers)
             ip = IpService(session=self._session).check()
             print(f'Start with ip: {ip}')
