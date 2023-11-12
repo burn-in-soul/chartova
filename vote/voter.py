@@ -5,6 +5,7 @@ import requests
 import stem.control
 from fake_useragent import UserAgent
 
+import config
 from vote.one_vote import Vote
 from vote.parser import Parser
 
@@ -15,9 +16,9 @@ class Voter:
         self._prepare_data()
 
     def vote_pack(self, track_id: int) -> None:
-        with stem.control.Controller.from_port(address="127.0.0.1",
-                                               port=9051) as controller:
-            controller.authenticate(password='')
+        with stem.control.Controller.from_port(address=config.TOR_PROXY,
+                                               port=config.TOR_PORT) as controller:
+            controller.authenticate(password=config.TOR_PASSWORD)
             one_vote = Vote(session=self._session, headers=self._headers)
             for i in range(3):
                 one_vote.run(track_id=track_id,
