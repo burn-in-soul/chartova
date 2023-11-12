@@ -14,7 +14,8 @@ class Vote:
         response = self._session.post(
             url='https://www.nashe.ru/chartova/vote',
             headers=self._headers,
-            data={'track_id': track_id, 'iteration_id': iteration_id}
+            data={'track_id': track_id, 'iteration_id': iteration_id},
+            timeout=10,
         )
         if response.status_code == 200:
             print(f'Проголосовал: {track_id}')
