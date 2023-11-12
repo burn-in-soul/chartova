@@ -8,6 +8,7 @@ load_dotenv()
 
 celery_app = Celery('main', broker=config.CELERY_BROKER)
 
+celery_app.conf.task_default_queue = 'chartova'
 
 @celery_app.task
 def vote_pack(**kwargs) -> None:
