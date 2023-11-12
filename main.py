@@ -9,7 +9,6 @@ from logger import logging
 def main(track_id: int, vote_count: int) -> None:
     now = datetime.datetime.now()
     intervals = Interval(vote_count).generate(now.hour)
-    logging.info(intervals)
     create_tasks(track_id, intervals)
 
 

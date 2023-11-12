@@ -11,3 +11,8 @@ celery_app.conf.task_default_queue = 'chartova'
 @celery_app.task
 def vote_pack(**kwargs) -> None:
     Voter().vote_pack(track_id=kwargs['track_id'])
+
+
+@celery_app.task
+def test_task(**kwargs) -> None:
+    print(kwargs)

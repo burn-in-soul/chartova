@@ -17,6 +17,6 @@ class Vote:
             data={'track_id': track_id, 'iteration_id': iteration_id}
         )
         if response.status_code == 200:
-            logging.info(f'Проголосовал: {track_id}')
+            print(f'Проголосовал: {track_id}')
         else:
-            logging.error(response.text)
+            print(response.text)
