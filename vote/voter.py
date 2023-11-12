@@ -44,7 +44,7 @@ class Voter:
             'User-Agent': UserAgent().random
         }
         response = self._session.get('https://www.nashe.ru/chartova/',
-                                     timeout=10)
+                                     timeout=10, headers=self._headers)
         parser = Parser(response.content)
         self._headers['X-CSRF-TOKEN'] = parser.get_csrf()
         self.iteration_id = parser.get_iteration_id()
