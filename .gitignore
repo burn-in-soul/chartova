@@ -25,3 +25,4 @@ coverage.xml
 poetry.lock
 # pycharm
 .idea
+config.py
