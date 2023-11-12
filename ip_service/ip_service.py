@@ -7,4 +7,6 @@ class IpService:
         self._session = session
 
     def check(self) -> str:
-        return self._session.get(url='https://2ip.ru').text
+        return self._session.get(
+            url='https://ifconfig.me/ip',
+            headers={'Content-Type': 'application/json'}).text
