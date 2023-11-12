@@ -1,7 +1,7 @@
 import dbus
 
 
-class Service:
+class DbusService:
 
     def __init__(self) -> None:
         sysbus = dbus.SystemBus()

@@ -4,7 +4,7 @@ import time
 import requests
 from fake_useragent import UserAgent
 
-from system_service.service import Service
+from system_service.pystemd_service import SystemdService
 from vote.one_vote import Vote
 from vote.parser import Parser
 
@@ -22,7 +22,7 @@ class Voter:
                          iteration_id=self.iteration_id)
             time.sleep(random.uniform(3, 6))
 
-        Service().restart('tor.service')
+        SystemdService().restart('tor.service')
 
     def _prepare_data(self) -> None:
         self._headers = {
