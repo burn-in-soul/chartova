@@ -22,7 +22,7 @@ class Voter:
                          iteration_id=self.iteration_id)
             time.sleep(random.uniform(3, 6))
 
-        SystemdService().restart('tor.service')
+        SystemdService().restart('tor')
 
     def _prepare_data(self) -> None:
         self._headers = {
