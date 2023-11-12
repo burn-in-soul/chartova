@@ -4,6 +4,7 @@ import time
 import requests
 from fake_useragent import UserAgent
 
+from system_service.service import Service
 from vote.one_vote import Vote
 from vote.parser import Parser
 
@@ -18,6 +19,8 @@ class Voter:
             one_vote.run(track_id=track_id,
                          iteration_id=self.iteration_id)
             time.sleep(random.uniform(3, 6))
+
+        Service().restart('celery-chartova.service')
 
     def _prepare_data(self) -> None:
         self._headers = {
