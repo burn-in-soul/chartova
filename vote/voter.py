@@ -20,9 +20,8 @@ class Voter:
         for i in range(3):
             one_vote.run(track_id=track_id,
                          iteration_id=self.iteration_id)
-            time.sleep(random.uniform(3, 6))
-
-        SystemdService().restart('tor')
+            time.sleep(random.uniform(2, 5))
+        SystemdService().restart(b'tor.service')
 
     def _prepare_data(self) -> None:
         self._headers = {
