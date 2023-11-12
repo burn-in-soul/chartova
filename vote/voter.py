@@ -42,6 +42,7 @@ class Voter:
             'X-Requested-With': 'XMLHttpRequest',
             'User-Agent': UserAgent().random
         }
+        self._session.proxies = {}
         response = self._session.get('https://www.nashe.ru/chartova/')
         parser = Parser(response.content)
         self._headers['X-CSRF-TOKEN'] = parser.get_csrf()
