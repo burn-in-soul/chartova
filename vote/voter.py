@@ -13,9 +13,10 @@ class Voter:
         self._prepare_data()
 
     def vote_pack(self, track_id: int) -> None:
+        one_vote = Vote(self._headers)
         for i in range(3):
-            Vote(self._headers).vote(track_id=track_id,
-                                     iteration_id=self.iteration_id)
+            one_vote.run(track_id=track_id,
+                         iteration_id=self.iteration_id)
             time.sleep(random.uniform(3, 6))
 
     def _prepare_data(self) -> None:

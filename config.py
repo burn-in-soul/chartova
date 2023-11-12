@@ -30,3 +30,5 @@ HOURS = {
 RANDOM_INTERVAL = 2
 
 CELERY_BROKER = 'redis://localhost:6379/'
+
+TOR_PROXY = 'socks5://127.0.0.1:9050'
