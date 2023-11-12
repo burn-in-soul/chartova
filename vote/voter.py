@@ -2,7 +2,7 @@ import random
 import time
 
 import requests
-import stem.process
+import stem.control
 from fake_useragent import UserAgent
 
 from vote.one_vote import Vote
