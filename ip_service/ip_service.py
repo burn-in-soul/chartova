@@ -8,5 +8,5 @@ class IpService:
 
     def check(self) -> str:
         return self._session.get(
-            url='https://ifconfig.me/ip',
+            url='http://httpbin.org/ip',
             headers={'Content-Type': 'application/json'}).text

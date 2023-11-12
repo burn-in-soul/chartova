@@ -15,6 +15,8 @@ from logger import logging
 class Voter:
     def __init__(self) -> None:
         self._session = requests.Session()
+        self._session.proxies = {'http': config.TOR_PROXY,
+                                 'https': config.TOR_PROXY}
         self._prepare_data()
 
     def vote_pack(self, track_id: int) -> None:
@@ -24,8 +26,8 @@ class Voter:
             controller.authenticate(password=config.TOR_PASSWORD)
             one_vote = Vote(session=self._session, headers=self._headers)
             ip = IpService(session=self._session).check()
+            logging.info(f'Start with ip: {ip}')
             for i in range(3):
-                logging.info(f'Start with ip: {ip}')
                 one_vote.run(track_id=track_id,
                              iteration_id=self.iteration_id)
                 time.sleep(random.uniform(2, 5))
