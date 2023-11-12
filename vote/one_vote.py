@@ -6,11 +6,12 @@ from logger import logging
 
 
 class Vote:
-    def __init__(self, headers: Dict) -> None:
+    def __init__(self, session: requests.Session, headers: Dict) -> None:
         self._headers = headers
+        self._session = session
 
     def vote(self, track_id: int, iteration_id: int) -> None:
-        response = requests.post(
+        response = self._session.post(
             url='https://www.nashe.ru/chartova/vote',
             headers=self._headers,
             data={'track_id': track_id, 'iteration_id': iteration_id}
