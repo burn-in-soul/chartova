@@ -10,12 +10,11 @@ from vote.parser import Parser
 
 
 class Voter:
-    def __init__(self) -> None:
-        self._prepare_data()
 
     def vote_pack(self, track_id: int) -> None:
         one_vote = Vote(self._headers)
         for i in range(3):
+            self._prepare_data()
             one_vote.run(track_id=track_id,
                          iteration_id=self.iteration_id)
             time.sleep(random.uniform(3, 6))
