@@ -16,7 +16,7 @@ class Voter:
 
     def vote_pack(self, track_id: int) -> None:
         with stem.control.Controller.from_port(address="127.0.0.1",
-                                               port=9151) as controller:
+                                               port=9051) as controller:
             controller.authenticate(password='')
             one_vote = Vote(session=self._session, headers=self._headers)
             for i in range(3):
