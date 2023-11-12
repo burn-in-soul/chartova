@@ -16,8 +16,9 @@ class Voter:
         self._prepare_data()
 
     def vote_pack(self, track_id: int) -> None:
-        with stem.control.Controller.from_port(address=config.TOR_PROXY,
-                                               port=config.TOR_PORT) as controller:
+        with stem.control.Controller.from_port(
+                address=config.TOR_HOST,
+                port=config.TOR_PORT) as controller:
             controller.authenticate(password=config.TOR_PASSWORD)
             one_vote = Vote(session=self._session, headers=self._headers)
             for i in range(3):
