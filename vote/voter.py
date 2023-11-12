@@ -6,8 +6,10 @@ import stem.control
 from fake_useragent import UserAgent
 
 import config
+from ip_service.ip_service import IpService
 from vote.one_vote import Vote
 from vote.parser import Parser
+from logger import logging
 
 
 class Voter:
@@ -21,7 +23,9 @@ class Voter:
                 port=config.TOR_PORT) as controller:
             controller.authenticate(password=config.TOR_PASSWORD)
             one_vote = Vote(session=self._session, headers=self._headers)
+            ip = IpService(session=self._session).check()
             for i in range(3):
+                logging.info(f'Start with ip: {ip}')
                 one_vote.run(track_id=track_id,
                              iteration_id=self.iteration_id)
                 time.sleep(random.uniform(2, 5))
