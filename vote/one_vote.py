@@ -7,14 +7,14 @@ from logger import logging
 
 
 class Vote:
-    def __init__(self, headers: Dict) -> None:
+    def __init__(self, session: requests.Session, headers: Dict) -> None:
         self._headers = headers
-        self.session = requests.Session()
-        self.session.proxies = {'http': config.TOR_PROXY,
-                                'https': config.TOR_PROXY}
+        self._session = session
+        self._session.proxies = {'http': config.TOR_PROXY,
+                                 'https': config.TOR_PROXY}
 
     def run(self, track_id: int, iteration_id: int) -> None:
-        response = self.session.post(
+        response = self._session.post(
             url='https://www.nashe.ru/chartova/vote',
             headers=self._headers,
             data={'track_id': track_id, 'iteration_id': iteration_id}
