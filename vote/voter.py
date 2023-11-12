@@ -36,7 +36,9 @@ class Voter:
                 one_vote.run(track_id=track_id,
                              iteration_id=self.iteration_id)
                 time.sleep(random.uniform(2, 5))
-            controller.signal(stem.Signal.HUP)
+            print('finish tasks')
+            controller.signal(stem.Signal.NEWNYM)
+        print('kill tor process')
 
     def _prepare_data(self) -> None:
         self._headers = {
