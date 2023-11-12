@@ -1,10 +1,7 @@
 from celery import Celery
-from dotenv import load_dotenv
 
 import config
 from vote.voter import Voter
-
-load_dotenv()
 
 celery_app = Celery('main', broker=config.CELERY_BROKER)
 
