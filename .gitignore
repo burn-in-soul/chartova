@@ -26,4 +26,4 @@ poetry.lock
 # pycharm
 .idea
 config.py
-.log
+chartova.log
