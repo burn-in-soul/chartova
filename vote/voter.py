@@ -15,7 +15,7 @@ class Voter:
         self._prepare_data()
 
     def vote_pack(self, track_id: int) -> None:
-        with stem.control.Controller.from_port() as controller:
+        with stem.control.Controller.from_port(port=9051) as controller:
             controller.authenticate()
             one_vote = Vote(session=self._session,
                             headers=self._headers)
