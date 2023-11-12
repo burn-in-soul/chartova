@@ -13,5 +13,7 @@ def create_tasks(track_id: int, intervals: List[float]) -> None:
     for interval in intervals:
         vote_pack.apply_async(
             eta=msc_tz.localize(datetime.now()) + timedelta(countdown),
-            kwargs={'track_id': track_id})
+            kwargs={'track_id': track_id},
+            queue='chartova'
+        )
         countdown += interval
