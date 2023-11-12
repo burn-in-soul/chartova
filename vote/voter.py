@@ -15,14 +15,15 @@ class Voter:
         self._prepare_data()
 
     def vote_pack(self, track_id: int) -> None:
-        tor_process = stem.process.launch_tor()
-        one_vote = Vote(session=self._session,
-                        headers=self._headers)
-        for i in range(3):
-            one_vote.run(track_id=track_id,
-                         iteration_id=self.iteration_id)
-            time.sleep(random.uniform(2, 5))
-        tor_process.kill()
+        with stem.control.Controller.from_port() as controller:
+            controller.authenticate()
+            one_vote = Vote(session=self._session,
+                            headers=self._headers)
+            for i in range(3):
+                one_vote.run(track_id=track_id,
+                             iteration_id=self.iteration_id)
+                time.sleep(random.uniform(2, 5))
+            controller.signal(stem.Signal.HUP)
 
     def _prepare_data(self) -> None:
         self._headers = {
