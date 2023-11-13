@@ -8,45 +8,44 @@ from fake_useragent import UserAgent
 
 import config
 from ip_service.ip_service import IpService
-from vote.one_vote import Vote
+from request_utils.chartova_request import ChartovaRequest
+from vote.vote import Vote
 from vote.parser import Parser
 
 stem.util.log.get_logger().propagate = False
 
 
-class Voter:
+class VotePack:
     def __init__(self) -> None:
         self._session = requests.Session()
+        self._session.headers = {
+            'X-Requested-With': 'XMLHttpRequest',
+            'User-Agent': UserAgent().random
+        }
         self._session.proxies = {'http': config.TOR_PROXY,
                                  'https': config.TOR_PROXY}
 
-    def vote_pack(self, track_id: int) -> None:
-        print('run task')
+    def run(self, track_id: int) -> None:
         with stem.control.Controller.from_port(
                 address=config.TOR_HOST,
                 port=config.TOR_PORT) as controller:
             controller.authenticate(password=config.TOR_PASSWORD)
-            print('get controller')
             self._prepare_data()
-            print('prepare data')
-            one_vote = Vote(session=self._session, headers=self._headers)
-            ip = IpService(session=self._session).check()
-            print(f'Start with ip: {ip}')
+            one_vote = Vote(session=self._session)
             for i in range(3):
                 one_vote.run(track_id=track_id,
                              iteration_id=self.iteration_id)
-                time.sleep(random.uniform(2, 5))
-            print('finish tasks')
+                if i < 2:
+                    time.sleep(random.uniform(2, 5))
+            ip = IpService(session=self._session).check()
+            print(f'3 votes to {track_id} with ip: {ip}')
             controller.signal(stem.Signal.NEWNYM)
-        print('kill tor process')
 
     def _prepare_data(self) -> None:
-        self._headers = {
-            'X-Requested-With': 'XMLHttpRequest',
-            'User-Agent': UserAgent().random
-        }
-        response = self._session.get('https://www.nashe.ru/chartova/',
-                                     timeout=10, headers=self._headers)
+        response = ChartovaRequest(self._session).make(
+            path='',
+            method='GET',
+        )
         parser = Parser(response.content)
-        self._headers['X-CSRF-TOKEN'] = parser.get_csrf()
+        self._session.headers['X-CSRF-TOKEN'] = parser.get_csrf()
         self.iteration_id = parser.get_iteration_id()

@@ -1,6 +1,6 @@
-import json
-
 import requests
+
+from request_utils.ip_request import IpRequest
 
 
 class IpService:
@@ -9,6 +9,4 @@ class IpService:
         self._session = session
 
     def check(self) -> str:
-        return json.loads(self._session.get(
-            url='http://httpbin.org/ip',
-            headers={'Content-Type': 'application/json'}).content)['origin']
+        return IpRequest(self._session).make().json()['origin']

@@ -3,7 +3,7 @@ from typing import List
 
 from pytz import timezone
 
-from celery_app import vote_pack, test_task
+from celery_app import vote_pack
 
 msc_tz = timezone('Europe/Moscow')
 
