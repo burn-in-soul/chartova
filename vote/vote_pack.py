@@ -28,7 +28,7 @@ class VotePack:
     def run(self, track_id: int) -> None:
         with stem.control.Controller.from_port(
                 address=config.TOR_HOST,
-                port=config.TOR_PORT) as controller:
+                port=config.TOR_CONTROL_PORT) as controller:
             controller.authenticate(password=config.TOR_PASSWORD)
             self._prepare_data()
             one_vote = Vote(session=self._session)
