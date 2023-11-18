@@ -22,8 +22,8 @@ class VotePack:
             'X-Requested-With': 'XMLHttpRequest',
             'User-Agent': UserAgent().random
         }
-        # self._session.proxies = {'http': config.TOR_PROXY,
-        #                          'https': config.TOR_PROXY}
+        self._session.proxies = {'http': config.TOR_PROXY,
+                                 'https': config.TOR_PROXY}
 
     def run(self, track_id: int) -> None:
         with stem.control.Controller.from_port(

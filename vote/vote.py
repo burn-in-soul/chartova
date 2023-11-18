@@ -10,7 +10,7 @@ class Vote:
     def run(self, track_id: int, iteration_id: int) -> None:
         response = ChartovaRequest(session=self._session).make(
             method='POST',
-            path='vote',
+            path='vote/',
             data={'track_id': track_id, 'iteration_id': iteration_id},
         )
         if response.status_code != 200:
