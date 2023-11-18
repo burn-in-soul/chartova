@@ -22,8 +22,8 @@ class VotePack:
             'X-Requested-With': 'XMLHttpRequest',
             'User-Agent': UserAgent().random
         }
-        self._session.proxies = {'http': config.TOR_PROXY,
-                                 'https': config.TOR_PROXY}
+        # self._session.proxies = {'http': config.TOR_PROXY,
+        #                          'https': config.TOR_PROXY}
 
     def run(self, track_id: int) -> None:
         with stem.control.Controller.from_port(
@@ -47,5 +47,6 @@ class VotePack:
             method='GET',
         )
         parser = Parser(response.content)
+        self._session.headers = response.headers
         self._session.headers['X-CSRF-TOKEN'] = parser.get_csrf()
         self.iteration_id = parser.get_iteration_id()
