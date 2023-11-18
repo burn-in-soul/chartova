@@ -1,5 +1,6 @@
 import random
 import time
+from http.cookies import SimpleCookie
 
 import requests
 import stem.control
@@ -47,6 +48,12 @@ class VotePack:
             method='GET',
         )
         parser = Parser(response.content)
-        self._session.headers = response.headers
-        self._session.headers['X-CSRF-TOKEN'] = parser.get_csrf()
+        cookie = response.headers['Set-Cookie']
+        xsrf_token = cookie.split('XSRF-TOKEN=')[1].split(' ')[0]
+        laravel_session = cookie.split('laravel_session=')[1].split(' ')[0]
+        weborama_user_id = cookie.split('_weborama_user_id=')[1].split(' ')[0]
+        self._session.headers['Cookie'] = (f'_weborama_user_id={weborama_user_id} '
+                                           f'XSRF-TOKEN={xsrf_token} '
+                                           f'laravel_session={laravel_session}')
+        self._session.headers['X-Csrf-Token'] = parser.get_csrf()
         self.iteration_id = parser.get_iteration_id()
