@@ -4,6 +4,8 @@ import requests
 
 
 class ChartovaRequest:
+    """Запрос в chartova"""
+
     _BASE_URL = 'https://www.nashe.ru/chartova/'
 
     def __init__(self, session: requests.Session) -> None:

@@ -4,6 +4,7 @@ from request_utils.ip_request import IpRequest
 
 
 class IpService:
+    """Проверка IP"""
 
     def __init__(self, session: requests.Session) -> None:
         self._session = session

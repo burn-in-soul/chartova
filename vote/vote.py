@@ -4,6 +4,8 @@ from request_utils.chartova_request import ChartovaRequest
 
 
 class Vote:
+    """Один голос"""
+
     def __init__(self, session: requests.Session) -> None:
         self._session = session
 

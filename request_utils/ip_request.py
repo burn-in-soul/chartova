@@ -2,6 +2,8 @@ import requests
 
 
 class IpRequest:
+    """Запрос для проверки IP"""
+
     _BASE_URL = 'http://httpbin.org/ip'
 
     def __init__(self, session: requests.Session) -> None:

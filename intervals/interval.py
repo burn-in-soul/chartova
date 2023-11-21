@@ -6,6 +6,7 @@ import config
 
 
 class Interval:
+    """Генератор интервалов между голосами"""
 
     def __init__(self, vote_count: int) -> None:
         self.vote_count = vote_count

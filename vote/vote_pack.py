@@ -1,6 +1,5 @@
 import random
 import time
-from http.cookies import SimpleCookie
 
 import requests
 import stem.control
@@ -10,13 +9,15 @@ from fake_useragent import UserAgent
 import config
 from ip_service.ip_service import IpService
 from request_utils.chartova_request import ChartovaRequest
-from vote.vote import Vote
 from vote.parser import Parser
+from vote.vote import Vote
 
 stem.util.log.get_logger().propagate = False
 
 
 class VotePack:
+    """Пакет из 3 голосов от 1 пользователя"""
+
     def __init__(self) -> None:
         self._session = requests.Session()
         self._session.headers = {
@@ -48,12 +49,6 @@ class VotePack:
             method='GET',
         )
         parser = Parser(response.content)
-        cookie = response.headers['Set-Cookie']
-        xsrf_token = cookie.split('XSRF-TOKEN=')[1].split(' ')[0]
-        laravel_session = cookie.split('laravel_session=')[1].split(' ')[0]
-        weborama_user_id = cookie.split('_weborama_user_id=')[1].split(' ')[0]
-        self._session.headers['Cookie'] = (f'_weborama_user_id={weborama_user_id} '
-                                           f'XSRF-TOKEN={xsrf_token} '
-                                           f'laravel_session={laravel_session}')
+        self._session.headers['Cookie'] = parser.get_cookie(response.headers)
         self._session.headers['X-Csrf-Token'] = parser.get_csrf()
         self.iteration_id = parser.get_iteration_id()

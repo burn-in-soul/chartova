@@ -6,6 +6,8 @@ import config
 
 
 class Chart:
+    """График голосов в день"""
+
     def __init__(self, vote_count: int) -> None:
         self.vote_count = vote_count
 

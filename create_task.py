@@ -16,5 +16,4 @@ def create_tasks(track_id: int, intervals: List[float]) -> None:
             kwargs={'track_id': track_id},
             queue='chartova'
         )
-        print(msc_tz.localize(datetime.now()) + timedelta(seconds=countdown))
         countdown += interval

@@ -3,7 +3,6 @@ import sys
 
 from create_task import create_tasks
 from intervals.interval import Interval
-from logger import logging
 
 
 def main(track_id: int, vote_count: int) -> None:
