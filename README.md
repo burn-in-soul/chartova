@@ -33,7 +33,7 @@ HOURS = {  # Коэффициент голосов по часам
 RANDOM_INTERVAL = 2 # граница дополнительного интервала [-RANDOM_INTERVAL, RANDOM_INTERVAL]
 CELERY_BROKER = '' # брокер для заданий (redis/rabbitmq)
 TOR_HOST = ''
-TOR_PORT = 9095
+TOR_PORT = 9090
 TOR_CONTROL_PORT = 9051
 TOR_PROXY = f'socks5://{TOR_HOST}:{TOR_PORT}'
 TOR_PASSWORD = '' # пароль для контроля TOR
@@ -73,7 +73,7 @@ sudo systemctl enable chartova-celery
 
 Запуск скрипта каждый час:
 ```shell
-$POETRY_ENV_DIR/bin/python main.py track_id vote_count
+$POETRY_ENV_DIR/bin/python $PROJECT_DIR/main.py track_id vote_count
 ```
-`vote_count` - количество голосов в день.
+`vote_count` - количество голосовавших в день.
 Запустит в селери задания в соответствии с общим кол-вом голосов в день и коэффициентом часа. 
