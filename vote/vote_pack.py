@@ -2,17 +2,14 @@ import random
 import time
 
 import requests
-import stem.control
-import stem.util
 from fake_useragent import UserAgent
 
 import config
 from ip_service.ip_service import IpService
 from request_utils.chartova_request import ChartovaRequest
+from tor_service.tor_controller import TorController
 from vote.parser import Parser
 from vote.vote import Vote
-
-stem.util.log.get_logger().propagate = False
 
 
 class VotePack:
@@ -28,10 +25,7 @@ class VotePack:
                                  'https': config.TOR_PROXY}
 
     def run(self, track_id: int) -> None:
-        with stem.control.Controller.from_port(
-                address=config.TOR_HOST,
-                port=config.TOR_CONTROL_PORT) as controller:
-            controller.authenticate(password=config.TOR_PASSWORD)
+        with TorController() as controller:
             self._prepare_data()
             one_vote = Vote(session=self._session)
             for i in range(3):
@@ -41,7 +35,7 @@ class VotePack:
                     time.sleep(random.uniform(2, 5))
             ip = IpService(session=self._session).check()
             print(f'3 votes to {track_id} with ip: {ip}')
-            controller.signal(stem.Signal.NEWNYM)
+            controller.reload()
 
     def _prepare_data(self) -> None:
         response = ChartovaRequest(self._session).make(

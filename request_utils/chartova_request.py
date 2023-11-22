@@ -13,9 +13,12 @@ class ChartovaRequest:
 
     def make(self, path: str, method: str,
              data: Dict = None) -> requests.Response:
-        return self._session.request(
+        response = self._session.request(
             method=method,
             url=f'{self._BASE_URL}{path}',
             data=data,
             timeout=10,
         )
+        if response.status_code != 200:
+            raise ConnectionError(response.text)
+        return response
