@@ -35,7 +35,6 @@ class VotePack:
                     time.sleep(random.uniform(2, 5))
             ip = IpService(session=self._session).check()
             print(f'3 votes to {track_id} with ip: {ip}')
-            controller.reload()
 
     def _prepare_data(self) -> None:
         response = ChartovaRequest(self._session).make(
